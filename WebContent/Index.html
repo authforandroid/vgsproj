@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+
+</head>
+<body>
+
+
+ <h1 class="label"> Welcome</h1>
+ <br/>
+ 
+ <div>
+  some div
+ </div>
+ 
+ <span class="label">raju</span>
+ 
+ <form id="loginform" >
+	<input type="text" name="username" id="username"/>
+	<input type="password" name="password"/>
+	<button id="submit">Login </button>
+ </form>
+ 
+ <p class="label">
+  p with class label
+ </p>
+ 
+ <p>
+ some data 
+ 	<span class="label"> p > label
+  </span></p>
+</body>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	  $('p.label').removeClass('clearall').addClass('label');
+	  $('#submit').click(function(e){s
+		  var username=$("form input[name='username']").val();
+		  if(username==""){
+			  $("form input[name='username']").addClass('error');
+			  e.preventDefault();
+			  e.stopPropogation();
+			  
+		  }else{
+			  $("form input[name='username']").addClass('success'); 
+			  e.preventDefault();
+			  e.stopPropogation();
+		  } 
+	  })
+	 
+	  console.log(username);
+  });
+  	
+
+  </script>
+</html>
