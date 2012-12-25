@@ -3,34 +3,51 @@ package com.vgs.beans;
 import java.util.Date;
 
 public class Person {
-	int PersonId;
-	String Fname;
-	String Mname;
-	String Lname;
-	String VoterId;
-	String Gender;
-	Date DOB;
-	String BloodGroup;
-	Address LocalAdd;
-	Address PerAdd;
-	String Education;
-	String Email;
-	String Occupation;
-	String OrgName;
-	String Pancard;
-	String RationCard;
-	boolean SenierCitizen;
-	String Adharcard;
-	boolean OnRent;
-	String OwnerFname;
-	String OwnerLname;
-	int OwnerContact;
-	String OwnerOccupation;
-	boolean ChairPerson;
-	String FormNo;
-	int EnteredByUser;
+	private int PersonId;
+	private String Fname;
+	private String Mname;
+	private String Lname;
+	private String VoterId;
+	private String Gender;
+	private Date DOB;
+	private String BloodGroup;
+	private Address LocalAdd;
+	private Address PerAdd;
+	private boolean SameAdd;
+	private String Education;
+	private String Email;
+	private String Occupation;
+	private String OrgName;
+	private String Pancard;
+	private String RationCard;
+	private boolean SenierCitizen;
+	private String Adharcard;
+	private boolean OnRent;
+	private String OwnerFname;
+	private String OwnerLname;
+	private int OwnerContact;
+	private String OwnerOccupation;
+	private boolean ChairPerson;
+	private String FormNo;
+	private User User;
+	private int ParentId;
+	private int RelationshipId;
 	
 	public Person() {
+	}
+	public User getUser() {
+		return User;
+	}
+	public void setUser(User user) {
+		User = user;
+	}
+	int Contact;
+	
+	public int getContact() {
+		return Contact;
+	}
+	public void setContact(int contact) {
+		Contact = contact;
 	}
 	public int getPersonId() {
 		return PersonId;
@@ -92,6 +109,13 @@ public class Person {
 	public void setPerAdd(Address perAdd) {
 		PerAdd = perAdd;
 	}
+	public boolean isSameAdd() {
+		return SameAdd;
+	}
+	public void setSameAdd(boolean sameAdd) {
+		SameAdd = sameAdd;
+	}
+	
 	public String getEducation() {
 		return Education;
 	}
@@ -182,10 +206,18 @@ public class Person {
 	public void setFormNo(String formNo) {
 		FormNo = formNo;
 	}
-	public int getEnteredByUser() {
-		return EnteredByUser;
+	public int getParentId() {
+		return ParentId;
 	}
-	public void setEnteredByUser(int enteredByUser) {
-		EnteredByUser = enteredByUser;
+	public void setParentId(int parentId) {
+		ParentId = parentId;
 	}
+	public int getRelationshipId() {
+		return RelationshipId;
+	}
+	public void setRelationshipId(int relationshipId) {
+		RelationshipId = relationshipId;
+	}
+	
+	
 }

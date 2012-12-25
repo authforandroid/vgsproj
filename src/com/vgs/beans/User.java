@@ -1,10 +1,10 @@
 package com.vgs.beans;
 
 public class User {
-	public int UserId;
-	public String Username;
-	public String Password;
-	public String Role;
+	private int UserId;
+	private  String Username;
+	private  String Password;
+	private  String Role;
 	public User() {
 	}
 	public int getUserId() {
