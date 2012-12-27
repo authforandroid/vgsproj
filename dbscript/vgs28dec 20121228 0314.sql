@@ -77,7 +77,7 @@ CREATE TABLE `membertbl` (
 
 DROP TABLE IF EXISTS `persontbl`;
 CREATE TABLE `persontbl` (
-  `personId` int(20) unsigned NOT NULL AUTO_INCREMENT,
+  `personId` int(20) unsigned NOT NULL,
   `fname` varchar(45) NOT NULL,
   `mname` varchar(45) DEFAULT NULL,
   `lname` varchar(45) NOT NULL,
@@ -103,13 +103,14 @@ CREATE TABLE `persontbl` (
   `chairperson` tinyint(1) DEFAULT NULL,
   `formno` varchar(45) DEFAULT NULL,
   `byUser` int(20) DEFAULT NULL,
+  `contact` int(20) DEFAULT NULL,
   PRIMARY KEY (`personId`),
   KEY `localAdd_idx` (`localAdd`,`perAdd`,`byUser`),
   KEY `byUser_idx` (`byUser`),
   KEY `perAdd` (`perAdd`),
+  CONSTRAINT `byUser` FOREIGN KEY (`byUser`) REFERENCES `usertbl` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `localAdd` FOREIGN KEY (`localAdd`) REFERENCES `addresstbl` (`addressId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `perAdd` FOREIGN KEY (`perAdd`) REFERENCES `addresstbl` (`addressId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `byUser` FOREIGN KEY (`byUser`) REFERENCES `usertbl` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `perAdd` FOREIGN KEY (`perAdd`) REFERENCES `addresstbl` (`addressId`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
