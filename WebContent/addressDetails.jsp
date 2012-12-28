@@ -12,14 +12,15 @@
 	<div class="conatiner-fluid">
 		<div class="row-fluid">
 			<h3>Address details of -Person name-</h3>
-			<input type="hidden" id="perentid" value="#">
+			<input type="hidden" id="personId"
+				value="<%=request.getParameter("personId")%>">
 		</div>
-		<div class="row-fluid">
-			<form class="form-horizontal">
+		<form class="form-horizontal" method="post" action="AddAddress">
+			<div class="row-fluid">
 				<fieldset>
 					<legend>Address Details</legend>
 
-					<div class="span4" style="margin-left:0;">
+					<div class="span4" style="margin-left: 0;">
 						<div class="control-group">
 							<div class="controls">
 								<label class="checkbox" for=onrent> <input
@@ -160,8 +161,14 @@
 					</div>
 					<!-- end of permanant address -->
 				</fieldset>
-			</form>
-		</div>
+			</div>
+			<div class="row-fluid">
+				<div class="offset4 span4">
+					<button class="btn btn-large btn-primary pull-right" type="submit">Save
+						And Continue</button>
+				</div>
+			</div>
+		</form>
 	</div>
 	<jsp:include page="scripts.jsp" flush="true"></jsp:include>
 

@@ -9,9 +9,10 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" flush="true"></jsp:include>
-	<div class="conatiner-fluid">
-		<div class="row-fluid">
-			<form class="form-horizontal">
+	<form class="form-horizontal" method="post" action="AddPerson">
+
+		<div class="conatiner-fluid">
+			<div class="row-fluid">
 				<div class="span4">
 					<fieldset>
 						<legend>Personal Details</legend>
@@ -109,8 +110,8 @@
 						<div class="control-group">
 							<div class="controls">
 								<label class="checkbox" for="seniorcitizen"> <input
-									type="checkbox" id="seniorcitizen" value="seniorcitizen">I am a senior
-									citizen
+									type="checkbox" id="seniorcitizen" value="seniorcitizen">I
+									am a senior citizen
 								</label>
 							</div>
 						</div>
@@ -157,10 +158,18 @@
 					</fieldset>
 				</div>
 				<!-- end of 2nd-2nd column -->
-			</form>
+
+
+			</div>
+			<!-- end of container-fluid row-fluid -->
+			<div class="row-fluid">
+				<div class="offset4 span4">
+					<button class="btn btn-large btn-primary pull-right" type="submit">Save
+						And Continue</button>
+				</div>
+			</div>
 		</div>
-		<!-- end of container-fluid row-fluid -->
-	</div>
+	</form>
 	<jsp:include page="scripts.jsp" flush="true"></jsp:include>
 </body>
 <script type="text/javascript">

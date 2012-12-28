@@ -12,4 +12,24 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddPerson</display-name>
+    <servlet-name>AddPerson</servlet-name>
+    <servlet-class>com.vgs.serv.AddPerson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPerson</servlet-name>
+    <url-pattern>/AddPerson</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddAddress</display-name>
+    <servlet-name>AddAddress</servlet-name>
+    <servlet-class>com.vgs.serv.AddAddress</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAddress</servlet-name>
+    <url-pattern>/AddAddress</url-pattern>
+  </servlet-mapping>
 </web-app>
