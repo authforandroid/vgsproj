@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +41,8 @@ public class AddPerson extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Person person=new Person();
 		
+		//Enumeration l=request.getParameterNames();
+		
 		person.setFname(request.getParameter("fname"));
 		person.setMname(request.getParameter("mname"));
 		person.setLname(request.getParameter("lname"));
@@ -64,7 +66,12 @@ public class AddPerson extends HttpServlet {
 		person.setAdharcard(request.getParameter("adharcard"));
 		person.setRationCard(request.getParameter("rationcard"));
 		String[] senior=request.getParameterValues("seniorcitizen");
-		person.setSenierCitizen(Integer.parseInt(senior[0])==1?true:false);
+		if(senior!= null){
+			person.setSenierCitizen(Integer.parseInt(senior[0])==1?true:false);
+		}else{
+			person.setSenierCitizen(false);
+		}
+		person.setChairPerson((request.getParameter("chairperson")!=null && request.getParameter("chairperson").equalsIgnoreCase("1"))?true:false);
 		person.setEducation(request.getParameter("education"));
 		person.setOccupation(request.getParameter("occupation"));
 		person.setOrgName(request.getParameter("orgname"));

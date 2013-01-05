@@ -108,11 +108,14 @@ public class DB {
 			psmtInsertPerson.setString(18, "TestForm0");
 			psmtInsertPerson.setString(19, "1");
 
-			psmtInsertPerson.executeUpdate();
+			if(psmtInsertPerson.executeUpdate()>0)
+				System.out.println("inserted successful");
+			
 			ResultSet rs=psmtInsertPerson.getGeneratedKeys();
 
 			while (rs.next()) {
-				person.setPersonId(rs.getLong("personId"));
+				long temp=rs.getLong(1);
+				person.setPersonId(temp);
 			}
 			
 			if(person.isChairPerson()){

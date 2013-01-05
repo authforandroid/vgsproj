@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function(){
-	$('#seniorcitizen').change(function() {
+	$("input[type='checkbox']").change(function() {
         if($(this).is(":checked")) {
             $(this).val(1);
             console.log(" is checked & value changed to "+$(this).val());

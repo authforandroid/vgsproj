@@ -1,15 +1,17 @@
 package com.vgs.beans;
 
 public class Address {
-	long AddressId;
-	String Line1;
-	String Line2;
-	String Area;
-	String City;
-	String State;
-	String Pincode;
-	String Contact;
+	private long AddressId;
+	private String Line1;
+	private String Line2;
+	private String Area;
+	private String City;
+	private String State;
+	private String Pincode;
+	private String Contact;
+	
 	public Address() {
+		
 	}
 	public long getAddressId() {
 		return AddressId;
@@ -59,4 +61,6 @@ public class Address {
 	public void setContact(String contact) {
 		Contact = contact;
 	}
+	
+	
 }

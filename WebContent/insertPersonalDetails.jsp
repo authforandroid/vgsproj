@@ -112,7 +112,7 @@
 						<div class="control-group"> 
 							<div class="controls">
 								<label class="checkbox" for="seniorcitizen"> 
-									<input type="checkbox" id="seniorcitizen" name="seniorcitizen" value="0">I am a senior citizen
+									<input type="checkbox" name="seniorcitizen" value="0" />I am a senior citizen
 								</label>
 							</div>
 						</div>
@@ -172,9 +172,5 @@
 	</form>
 	<jsp:include page="scripts.jsp" flush="true"></jsp:include>
 </body>
-<script type="text/javascript">
-	$(document).ready(function() {
 
-	});
-</script>
 </html>
