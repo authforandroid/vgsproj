@@ -3,7 +3,7 @@ package com.vgs.beans;
 import java.util.Date;
 
 public class Person {
-	private int PersonId;
+	private long PersonId;
 	private String Fname;
 	private String Mname;
 	private String Lname;
@@ -25,14 +25,15 @@ public class Person {
 	private boolean OnRent;
 	private String OwnerFname;
 	private String OwnerLname;
-	private int OwnerContact;
+	private long OwnerContact;
 	private String OwnerOccupation;
 	private boolean ChairPerson;
 	private String FormNo;
 	private User User;
-	private int ParentId;
-	private int RelationshipId;
-	
+	private long ParentId;
+	private long RelationshipId;
+	private long Contact;
+
 	public Person() {
 	}
 	public User getUser() {
@@ -41,18 +42,16 @@ public class Person {
 	public void setUser(User user) {
 		User = user;
 	}
-	int Contact;
-	
-	public int getContact() {
+	public long getContact() {
 		return Contact;
 	}
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		Contact = contact;
 	}
-	public int getPersonId() {
+	public long getPersonId() {
 		return PersonId;
 	}
-	public void setPersonId(int personId) {
+	public void setPersonId(long personId) {
 		PersonId = personId;
 	}
 	public String getFname() {
@@ -115,7 +114,7 @@ public class Person {
 	public void setSameAdd(boolean sameAdd) {
 		SameAdd = sameAdd;
 	}
-	
+
 	public String getEducation() {
 		return Education;
 	}
@@ -182,10 +181,10 @@ public class Person {
 	public void setOwnerLname(String ownerLname) {
 		OwnerLname = ownerLname;
 	}
-	public int getOwnerContact() {
+	public long getOwnerContact() {
 		return OwnerContact;
 	}
-	public void setOwnerContact(int ownerContact) {
+	public void setOwnerContact(long ownerContact) {
 		OwnerContact = ownerContact;
 	}
 	public String getOwnerOccupation() {
@@ -206,18 +205,18 @@ public class Person {
 	public void setFormNo(String formNo) {
 		FormNo = formNo;
 	}
-	public int getParentId() {
+	public long getParentId() {
 		return ParentId;
 	}
-	public void setParentId(int parentId) {
+	public void setParentId(long parentId) {
 		ParentId = parentId;
 	}
-	public int getRelationshipId() {
+	public long getRelationshipId() {
 		return RelationshipId;
 	}
-	public void setRelationshipId(int relationshipId) {
+	public void setRelationshipId(long relationshipId) {
 		RelationshipId = relationshipId;
 	}
-	
-	
+
+
 }

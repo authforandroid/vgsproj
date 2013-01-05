@@ -14,10 +14,13 @@ import java.util.Map;
 
 import com.vgs.beans.Address;
 import com.vgs.beans.Member;
+import com.vgs.beans.Owner;
 import com.vgs.beans.Person;
 import com.vgs.beans.Relationship;
 import com.vgs.beans.User;
-
+/*
+ * SHOW ENGINE INNODB STATUS
+ * */
 public class DB {
 
 	private static DB dbRef=null;;
@@ -81,16 +84,16 @@ public class DB {
 		return dbRef;
 	}
 
-	public int insertPerson(Person person){
+	public long insertPerson(Person person){
 		try {
 			psmtInsertPerson.setString(1, person.getFname());
 			psmtInsertPerson.setString(2, person.getMname());
 			psmtInsertPerson.setString(3, person.getLname());
 			psmtInsertPerson.setString(4, person.getGender());
-			psmtInsertPerson.setDate(5, (Date)person.getDOB());
+			psmtInsertPerson.setDate(5, new java.sql.Date(person.getDOB().getTime()));
 			psmtInsertPerson.setString(6, person.getBloodGroup());
 			psmtInsertPerson.setString(7, person.getEmail());
-			psmtInsertPerson.setInt(8, person.getContact());
+			psmtInsertPerson.setLong(8, person.getContact());
 			psmtInsertPerson.setString(9, person.getEducation());
 			psmtInsertPerson.setString(10, person.getOccupation());
 			psmtInsertPerson.setString(11, person.getOrgName());
@@ -100,47 +103,38 @@ public class DB {
 			psmtInsertPerson.setString(15, person.getAdharcard());
 			psmtInsertPerson.setBoolean(16, person.isSenierCitizen());
 			psmtInsertPerson.setBoolean(17, person.isChairPerson());
-			psmtInsertPerson.setString(18, person.getFormNo());
-			psmtInsertPerson.setString(19, person.getUser().getUsername());
+			//psmtInsertPerson.setString(18, person.getFormNo());
+			//psmtInsertPerson.setString(19, person.getUser().getUsername());
+			psmtInsertPerson.setString(18, "TestForm0");
+			psmtInsertPerson.setString(19, "1");
 
 			psmtInsertPerson.executeUpdate();
 			ResultSet rs=psmtInsertPerson.getGeneratedKeys();
 
 			while (rs.next()) {
-				person.setPersonId(rs.getInt("personId"));
+				person.setPersonId(rs.getLong("personId"));
 			}
-
-
-			//if not a chair person then relation needs to be mentioned with parent 
+			
 			if(person.isChairPerson()){
-				int localAddressId=insertAddress(person.getLocalAdd());
-				//true means update the local address using psmtLocalAddress
-				updateAddRefInPerson(person.getPersonId(), localAddressId, true);
-				int perAddressId=0;
-				if(!person.isSameAdd())
-					perAddressId=insertAddress(person.getPerAdd());
-
-				if(perAddressId!=0)
-					updateAddRefInPerson(person.getPersonId(), localAddressId, false);
-
-				if(person.isOnRent()){
-					psmtUpdateOwnerInPerson.setBoolean(1,person.isOnRent());
-					psmtUpdateOwnerInPerson.setString(2, person.getOwnerFname());
-					psmtUpdateOwnerInPerson.setString(3, person.getOwnerLname());
-					psmtUpdateOwnerInPerson.setInt(4, person.getOwnerContact());
-					psmtUpdateOwnerInPerson.setString(5, person.getOwnerOccupation());
-					psmtUpdateOwnerInPerson.setInt(6,person.getPersonId());
-
-					psmtUpdateOwnerInPerson.executeUpdate();
-
+				//do nothing
+			}else{
+				//update address as of parent and add relationship 
+				if(person.getParentId()>0){
+					Person parent=getChairPerson(person.getParentId());
+					if(parent!= null){
+						Owner owner=new Owner();
+						owner.setOwnerContact(parent.getOwnerContact());
+						owner.setOwnerFname(parent.getFname());
+						owner.setOwnerLname(parent.getOwnerLname());
+						owner.setOwnerOccupation(parent.getOwnerOccupation());
+						
+						addOwnerDetails(person.getPersonId(), owner);
+						updateAddRefInPerson(person.getPersonId(), parent.getLocalAdd().getAddressId(), true);
+						updateAddRefInPerson(person.getPersonId(), parent.getPerAdd().getAddressId(),false);
+						
+						addMember(person.getPersonId(), parent.getPersonId(), person.getRelationshipId());
+					}
 				}
-			}
-			else{
-				psmtInsertMember.setInt(1,person.getPersonId());
-				psmtInsertMember.setInt(2,person.getParentId());
-				psmtInsertMember.setInt(3,person.getRelationshipId());
-
-				psmtInsertMember.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,7 +142,39 @@ public class DB {
 
 		return person.getPersonId();
 	}
-	public int insertAddress(Address address){
+		
+	public boolean addOwnerDetails(long personId,Owner owner){
+		int status=0;
+		try {
+			psmtUpdateOwnerInPerson.setBoolean(1,true);
+			psmtUpdateOwnerInPerson.setString(2, owner.getOwnerFname());
+			psmtUpdateOwnerInPerson.setString(3, owner.getOwnerLname());
+			psmtUpdateOwnerInPerson.setLong(4, owner.getOwnerContact());
+			psmtUpdateOwnerInPerson.setString(5, owner.getOwnerOccupation());
+			psmtUpdateOwnerInPerson.setLong(6,personId);
+
+			status=psmtUpdateOwnerInPerson.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return status>0?true:false;
+	}
+	
+	public boolean addMember(long personId,long parentId,long relationshipId ){
+		int status=0;
+		try {
+			psmtInsertMember.setLong(1,personId);
+			psmtInsertMember.setLong(2,parentId);
+			psmtInsertMember.setLong(3,relationshipId);
+
+			status=psmtInsertMember.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return status>0?true:false;
+	}
+	public long insertAddress(Address address){
 		try {
 			psmtInsertAddress.setString(1, address.getLine1());
 			psmtInsertAddress.setString(2, address.getLine2());
@@ -162,7 +188,7 @@ public class DB {
 			ResultSet rs=psmtInsertAddress.getGeneratedKeys();
 
 			while (rs.next()) {
-				address.setAddressId(rs.getInt("addressId"));
+				address.setAddressId(rs.getLong("addressId"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,18 +196,18 @@ public class DB {
 		}
 		return address.getAddressId();
 	}
-	public boolean updateAddRefInPerson(int personId, int addressId,boolean isLocal){
+	public boolean updateAddRefInPerson(long personId, long addressId,boolean isLocal){
 		int status=0;
 		try{
 			if(isLocal){
-				psmtUpdateLocalAddInPerson.setInt(1, addressId);
-				psmtUpdateLocalAddInPerson.setInt(2, personId);
+				psmtUpdateLocalAddInPerson.setLong(1, addressId);
+				psmtUpdateLocalAddInPerson.setLong(2, personId);
 
 				status=psmtUpdateLocalAddInPerson.executeUpdate();
 
 			}else{
-				psmtUpdatePermanantAddInPerson.setInt(1, addressId);
-				psmtUpdatePermanantAddInPerson.setInt(2, personId);
+				psmtUpdatePermanantAddInPerson.setLong(1, addressId);
+				psmtUpdatePermanantAddInPerson.setLong(2, personId);
 
 				status=psmtUpdatePermanantAddInPerson.executeUpdate();
 
@@ -189,35 +215,32 @@ public class DB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if(status>0)
-			return true;
-		else 
-			return false;
+		return status>0?true:false;
 	}
 
-	public Map<Integer, String> getAllRelationshipConstant(){
-		Map<Integer, String> constants= new HashMap<Integer, String>();
+	public Map<Long, String> getAllRelationshipConstant(){
+		Map<Long, String> constants= new HashMap<Long, String>();
 		try{
 			ResultSet rs=psmtGetAllRelationshipConstants.executeQuery();
 			while (rs.next()) {
-				constants.put(rs.getInt("relationshipId"), rs.getString("relation"));				
+				constants.put(rs.getLong("relationshipId"), rs.getString("relation"));				
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
 		return constants;
 	}
-	public List<Member> getAllMembers(int parentId){
+	public List<Member> getAllMembers(long parentId){
 		List<Member> members=new LinkedList<Member>();
 		try {
-			psmtGetAllFamilyMembers.setInt(1, parentId);
+			psmtGetAllFamilyMembers.setLong(1, parentId);
 			ResultSet rs=psmtGetAllFamilyMembers.executeQuery();
 
 			while (rs.next()) {
 				Member member=new Member();
-				member.setSelf(getPerson(rs.getInt("personId")));
-				member.setSelf(getPerson(rs.getInt("personId")));
-				member.setRelation(getRelationship(rs.getInt("relationshipId")));
+				member.setSelf(getPerson(rs.getLong("personId")));
+				member.setSelf(getPerson(rs.getLong("personId")));
+				member.setRelation(getRelationship(rs.getLong("relationshipId")));
 			}
 
 		} catch (SQLException e) {
@@ -225,13 +248,13 @@ public class DB {
 		}
 		return members;
 	}
-	public Person getPerson(int personId){
+	public Person getPerson(long personId){
 		Person person=new Person();
 		try {
-			psmtGetPerson.setInt(1, personId);
+			psmtGetPerson.setLong(1, personId);
 			ResultSet rs=psmtGetPerson.executeQuery();
 			while(rs.next()){
-				person.setPersonId(rs.getInt("personId"));
+				person.setPersonId(rs.getLong("personId"));
 				person.setFname(rs.getString("fname"));
 				person.setMname(rs.getString("mname"));
 				person.setLname(rs.getString("lname"));
@@ -239,13 +262,13 @@ public class DB {
 				person.setDOB(rs.getDate("dob"));
 				person.setBloodGroup(rs.getString("bloodgroup"));
 				person.setChairPerson(rs.getBoolean("chairperson"));
-				if(rs.getInt("perAdd")!=0 && rs.getInt("localAdd")==rs.getInt("perAdd"))
+				if(rs.getLong("perAdd")!=0 && rs.getLong("localAdd")==rs.getLong("perAdd"))
 					person.setSameAdd(true);
 				else
 					person.setSameAdd(false);
 
-				person.setLocalAdd(getAddress(rs.getInt("localAdd")));
-				person.setPerAdd(getAddress(rs.getInt("perAdd")));
+				person.setLocalAdd(getAddress(rs.getLong("localAdd")));
+				person.setPerAdd(getAddress(rs.getLong("perAdd")));
 
 				person.setEducation(rs.getString("education"));
 				person.setEmail(rs.getString("email"));
@@ -258,14 +281,10 @@ public class DB {
 				person.setSenierCitizen(rs.getBoolean("seniorcitizen"));
 				person.setOwnerFname(rs.getString("ownerfname"));
 				person.setOwnerLname(rs.getString("ownmerlname"));
-				person.setOwnerContact(rs.getInt("ownercontact"));
+				person.setOwnerContact(rs.getLong("ownercontact"));
 				person.setOwnerOccupation(rs.getString("owneroccupation"));
-
-				
 				person.setFormNo(rs.getString("formno"));
-
-				person.setUser(getUser(rs.getInt("byUser")));
-
+				person.setUser(getUser(rs.getLong("byUser")));
 			}
 
 		} catch (SQLException e) {
@@ -275,10 +294,10 @@ public class DB {
 		return person;
 	}
 
-	public Address getAddress(int addressId){
+	public Address getAddress(long addressId){
 		Address address=new Address();
 		try {
-			psmtGetAddress.setInt(1, addressId);
+			psmtGetAddress.setLong(1, addressId);
 			ResultSet rs= psmtGetAddress.executeQuery();
 			if (rs.next()) {
 				address.setAddressId(addressId);
@@ -296,10 +315,10 @@ public class DB {
 		}
 		return address;
 	}
-	public User getUser(int userId){
+	public User getUser(long userId){
 		User user =new User();
 		try {
-			psmtGetUser.setInt(1,userId);
+			psmtGetUser.setLong(1,userId);
 			ResultSet rs= psmtGetUser.executeQuery();
 			if(rs.next()){
 				user.setUserId(userId);
@@ -313,10 +332,10 @@ public class DB {
 		return user;
 
 	}
-	public Relationship getRelationship(int relationshipId){
+	public Relationship getRelationship(long relationshipId){
 		Relationship relationship=new Relationship();
 		try {
-			psmtGetRelationship.setInt(1,relationshipId);
+			psmtGetRelationship.setLong(1,relationshipId);
 			ResultSet rs= psmtGetRelationship.executeQuery();
 			if(rs.next()){
 				relationship.setRelationshipId(relationshipId);
@@ -328,13 +347,13 @@ public class DB {
 		return relationship;
 	}
 	
-	public Person getChairPerson(int personId){
+	public Person getChairPerson(long personId){
 		Person person=null;
 		try {
-			psmtGetChairPerson.setInt(1,personId);
+			psmtGetChairPerson.setLong(1,personId);
 			ResultSet rs=psmtGetChairPerson.executeQuery();
 			if(rs.next()){
-				person=getPerson(rs.getInt("parentId"));
+				person=getPerson(rs.getLong("parentId"));
 			}
 			
 		} catch (SQLException e) {

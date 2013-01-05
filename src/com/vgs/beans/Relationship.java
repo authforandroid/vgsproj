@@ -1,14 +1,14 @@
 package com.vgs.beans;
 
 public class Relationship {
-	int RelationshipId;
+	long RelationshipId;
 	String Relation;
 	public Relationship() {
 	}
-	public int getRelationshipId() {
+	public long getRelationshipId() {
 		return RelationshipId;
 	}
-	public void setRelationshipId(int relationshipId) {
+	public void setRelationshipId(long relationshipId) {
 		RelationshipId = relationshipId;
 	}
 	public String getRelation() {

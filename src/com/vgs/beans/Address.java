@@ -1,7 +1,7 @@
 package com.vgs.beans;
 
 public class Address {
-	int AddressId;
+	long AddressId;
 	String Line1;
 	String Line2;
 	String Area;
@@ -11,10 +11,10 @@ public class Address {
 	String Contact;
 	public Address() {
 	}
-	public int getAddressId() {
+	public long getAddressId() {
 		return AddressId;
 	}
-	public void setAddressId(int addressId) {
+	public void setAddressId(long addressId) {
 		AddressId = addressId;
 	}
 	public String getLine1() {

@@ -1,16 +1,16 @@
 package com.vgs.beans;
 
 public class User {
-	private int UserId;
+	private long UserId;
 	private  String Username;
 	private  String Password;
 	private  String Role;
 	public User() {
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return UserId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		UserId = userId;
 	}
 	public String getUsername() {
