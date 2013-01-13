@@ -32,4 +32,14 @@
     <servlet-name>AddAddress</servlet-name>
     <url-pattern>/AddAddress</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddMember</display-name>
+    <servlet-name>AddMember</servlet-name>
+    <servlet-class>com.vgs.serv.AddMember</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMember</servlet-name>
+    <url-pattern>/AddMember</url-pattern>
+  </servlet-mapping>
 </web-app>

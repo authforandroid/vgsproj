@@ -16,38 +16,36 @@ import com.vgs.db.DB;
  */
 public class AddAddress extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AddAddress() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		long personId=Long.parseLong(request.getParameter("personId"));
-		boolean onRent=Integer.parseInt(request.getParameter("onrent"))==1?true:false;
-		boolean sameAdd=Integer.parseInt(request.getParameter("sameadd"))==1?true:false;
-		long localId=0,perId=0;
+		boolean onRent=false;
+		boolean sameAdd=false;
+		if(request.getParameter("onrent")!=null){
+			onRent=request.getParameter("onrent").equalsIgnoreCase("1")?true:false;
+		}
+		if(request.getParameter("sameadd")!=null){
+			sameAdd=request.getParameter("sameadd").equalsIgnoreCase("1")?true:false;
+		}
 		
+		long localId=0,perId=0;
 		DB dbref= DB.getInstance();
 		if(onRent){
 			Owner owner=new Owner();
 			owner.setOwnerFname(request.getParameter("ownerfname"));
 			owner.setOwnerLname(request.getParameter("ownerlname"));
-			owner.setOwnerContact(Long.parseLong(request.getParameter("ownerContact")));
+			long ph=0;
+			if(request.getParameter("ownercontact").length()!=0){
+				ph=Long.parseLong(request.getParameter("ownercontact"));
+			}
+			owner.setOwnerContact(ph);
 			owner.setOwnerOccupation(request.getParameter("owneroccupation"));
 			
 			dbref.addOwnerDetails(personId, owner);
@@ -60,6 +58,11 @@ public class AddAddress extends HttpServlet {
 		localAdd.setCity(request.getParameter("city"));
 		localAdd.setState(request.getParameter("state"));
 		localAdd.setPincode(request.getParameter("pincode"));
+		String locPh=null;
+		if(request.getParameter("contact").length()!=0){
+			locPh=request.getParameter("contact");
+		}
+		localAdd.setPincode(locPh);
 		
 		if(sameAdd){
 			localId=dbref.insertAddress(localAdd);
@@ -69,13 +72,19 @@ public class AddAddress extends HttpServlet {
 				perId=localId;
 			}
 		}else{
+			localId=dbref.insertAddress(localAdd);
 			Address perAdd=new Address();
-			perAdd.setLine1(request.getParameter("line1"));
-			perAdd.setLine2(request.getParameter("line2"));
-			perAdd.setArea(request.getParameter("area"));
-			perAdd.setCity(request.getParameter("city"));
-			perAdd.setState(request.getParameter("state"));
-			perAdd.setPincode(request.getParameter("pincode"));
+			perAdd.setLine1(request.getParameter("perline1"));
+			perAdd.setLine2(request.getParameter("perline2"));
+			perAdd.setArea(request.getParameter("perarea"));
+			perAdd.setCity(request.getParameter("percity"));
+			perAdd.setState(request.getParameter("perstate"));
+			perAdd.setPincode(request.getParameter("perpincode"));
+			String perPh=null;
+			if(request.getParameter("percontact").length()!=0){
+				perPh=request.getParameter("percontact");
+			}
+			perAdd.setPincode(perPh);
 			perId=dbref.insertAddress(perAdd);
 			if(perId>0)
 			dbref.updateAddRefInPerson(personId, perId, false);

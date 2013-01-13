@@ -9,11 +9,11 @@
 </head>
 <body>
 	<form>
-		<input type="hidden" id="parentId" name="parentId" value="<%=request.getParameter("parentId")%>">
-		<input type="hidden" id="localId" name="localId" value="<%=request.getParameter("localId")%>">
-		<input type="hidden" id="perId" name="perId" value="<%=request.getParameter("perId")%>">
-		<input type="hidden" id="onRent" name="onRent" value="<%=request.getParameter("onRent")%>">
-		<input type="hidden" id="sameAdd" name="sameAdd" value="<%=request.getParameter("sameAdd")%>">
+<%-- 		<input type="hidden" id="parentId" name="parentId" value="<%=request.getParameter("parentId")%>"> --%>
+<%-- 		<input type="hidden" id="localId" name="localId" value="<%=request.getParameter("localId")%>"> --%>
+<%-- 		<input type="hidden" id="perId" name="perId" value="<%=request.getParameter("perId")%>"> --%>
+<%-- 		<input type="hidden" id="onRent" name="onRent" value="<%=request.getParameter("onRent")%>"> --%>
+<%-- 		<input type="hidden" id="sameAdd" name="sameAdd" value="<%=request.getParameter("sameAdd")%>"> --%>
 	</form>
 	<jsp:include page="header.jsp" flush="true"></jsp:include>
 	<div class="conatiner-fluid">
@@ -36,7 +36,7 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="memberstbl">
 					<tr>
 						<td>1</td>
 						<td>&nbsp;</td>
@@ -67,7 +67,7 @@
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-			<button class="btn btn-primary">Save changes</button>
+			<button id="addMemberSubmit" class="btn btn-primary">Save changes</button>
 		</div>
 	</div>
 

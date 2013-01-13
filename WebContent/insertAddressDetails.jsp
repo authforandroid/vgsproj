@@ -12,10 +12,9 @@
 	<div class="conatiner-fluid">
 		<div class="row-fluid">
 			<h3>Address details of -Person name-<%=request.getParameter("personId")%></h3>
-			
 		</div>
 		<form class="form-horizontal" method="post" action="AddAddress">
-			<input type="hidden" id="parentId" name="parentId" value="<%=request.getParameter("parentId")%>">
+			<input type="hidden" id="personId" name="personId" value="<%=request.getParameter("personId")%>">
 			<div class="row-fluid">
 				<fieldset>
 					<legend>Address Details</legend>
@@ -23,34 +22,38 @@
 					<div class="span4" style="margin-left: 0;">
 						<div class="control-group">
 							<div class="controls">
-								<label class="checkbox" for=onrent> <input
-									type="checkbox" id="onrent" value="onrent">I stay on
+								<label class="checkbox" for=onrent> 
+								<input type="checkbox" id="onrent" name="onrent" value="onrent">I stay on
 									rent
 								</label>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="ownerfname">Owner's
+								Last Name</label>
+							<div class="controls">
+								<input type="text" id="ownerfname" name="ownerfname" placeholder="Owner's First Name">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="ownerlname">Owner's
 								Last Name</label>
 							<div class="controls">
-								<input type="text" id="ownerlname"
-									placeholder="Owner's Last Name">
+								<input type="text" id="ownerlname" name="ownerlname" placeholder="Owner's Last Name">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="owneroccupation">Owner's
 								Occupation</label>
 							<div class="controls">
-								<input type="text" id="owneroccupation"
-									placeholder="Owner's Occupation">
+								<input type="text" id="owneroccupation" name="owneroccupation" placeholder="Owner's Occupation">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="ownercontact">Owner's
 								contact</label>
 							<div class="controls">
-								<input type="text" id="ownercontact"
-									placeholder="Owner's Contact">
+								<input type="text" id="ownercontact" name="ownercontact" placeholder="Owner's Contact">
 							</div>
 						</div>
 					</div>
@@ -63,43 +66,43 @@
 						<div class="control-group">
 							<label class="control-label" for="line1">Line 1</label>
 							<div class="controls">
-								<input type="text" id="line1" placeholder="Line 1">
+								<input type="text" id="line1" name="line1" placeholder="Line 1">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="line2">Line 2</label>
 							<div class="controls">
-								<input type="text" id="line2" placeholder="Line 2">
+								<input type="text" id="line2" name="line2" placeholder="Line 2">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="area">Area</label>
 							<div class="controls">
-								<input type="text" id="area" placeholder="Area">
+								<input type="text" id="area" name="area" placeholder="Area">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="city">City</label>
 							<div class="controls">
-								<input type="text" id="city" placeholder="City">
+								<input type="text" id="city" name="city" placeholder="City">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="state">State</label>
 							<div class="controls">
-								<input type="text" id="state" placeholder="State">
+								<input type="text" id="state" name="state" placeholder="State">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="pincode">Pincode</label>
 							<div class="controls">
-								<input type="text" id="pincode" placeholder="Pincode ">
+								<input type="text" id="pincode" name="pincode" placeholder="Pincode ">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="contact">Contact</label>
 							<div class="controls">
-								<input type="text" id="contact" placeholder="Contact">
+								<input type="text" id="contact" name="contact" placeholder="Contact">
 							</div>
 						</div>
 					</div>
@@ -111,51 +114,51 @@
 						</div>
 						<div class="control-group">
 							<div class="controls">
-								<label class="checkbox" for="sameadd"> <input
-									type="checkbox" value="sameadd">same as Local
+								<label class="checkbox" for="sameadd">
+								 <input type="checkbox" name="sameadd" value="sameadd">same as Local
 								</label>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="line1">Line 1</label>
+							<label class="control-label" for="perline1">Line 1</label>
 							<div class="controls">
-								<input type="text" id="line1" placeholder="Line 1">
+								<input type="text" id="perline1" name="perline1" placeholder="Line 1">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="line2">Line 2</label>
+							<label class="control-label" for="perline2">Line 2</label>
 							<div class="controls">
-								<input type="text" id="line2" placeholder="Line 2">
+								<input type="text" id="perline2" name="perline2" placeholder="Line 2">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="area">Area</label>
+							<label class="control-label" for="perarea">Area</label>
 							<div class="controls">
-								<input type="text" id="area" placeholder="Area">
+								<input type="text" id="perarea" name="perarea" placeholder="Area">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="city">City</label>
+							<label class="control-label" for="percity">City</label>
 							<div class="controls">
-								<input type="text" id="city" placeholder="City">
+								<input type="text" id="percity" name="percity" placeholder="City">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="state">State</label>
+							<label class="control-label" for="perstate">State</label>
 							<div class="controls">
-								<input type="text" id="state" placeholder="State">
+								<input type="text" id="perstate" name="perstate" placeholder="State">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="pincode">Pincode</label>
+							<label class="control-label" for="perpincode">Pincode</label>
 							<div class="controls">
-								<input type="text" id="pincode" placeholder="Pincode ">
+								<input type="text" id="perpincode" name="perpincode" placeholder="Pincode ">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="contact">Contact</label>
+							<label class="control-label" for="percontact">Contact</label>
 							<div class="controls">
-								<input type="text" id="contact" placeholder="Contact">
+								<input type="text" id="percontact" name="percontact" placeholder="Contact">
 							</div>
 						</div>
 					</div>

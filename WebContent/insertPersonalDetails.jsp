@@ -136,7 +136,7 @@
 									<option value="diploma">Diploma</option>
 									<option value="engginering">Engineering</option>
 									<option value="graduation">Graduation</option>
-									<option value="doctorgraduate">Doctor Graduatie</option>
+									<option value="doctorgraduate">Doctor Graduate</option>
 									<option value="postgraducation">Post Graduation</option>
 									<option value="PHD">PHD</option>
 									<option value="Other">Other</option>

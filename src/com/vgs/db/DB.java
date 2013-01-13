@@ -90,7 +90,11 @@ public class DB {
 			psmtInsertPerson.setString(2, person.getMname());
 			psmtInsertPerson.setString(3, person.getLname());
 			psmtInsertPerson.setString(4, person.getGender());
-			psmtInsertPerson.setDate(5, new java.sql.Date(person.getDOB().getTime()));
+			java.sql.Date dob=null;
+			if(person.getDOB()!=null){
+				dob=new java.sql.Date(person.getDOB().getTime());
+			}
+			psmtInsertPerson.setDate(5, dob);
 			psmtInsertPerson.setString(6, person.getBloodGroup());
 			psmtInsertPerson.setString(7, person.getEmail());
 			psmtInsertPerson.setLong(8, person.getContact());
@@ -191,7 +195,7 @@ public class DB {
 			ResultSet rs=psmtInsertAddress.getGeneratedKeys();
 
 			while (rs.next()) {
-				address.setAddressId(rs.getLong("addressId"));
+				address.setAddressId(rs.getLong(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
