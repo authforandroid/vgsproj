@@ -42,4 +42,24 @@
     <servlet-name>AddMember</servlet-name>
     <url-pattern>/AddMember</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetRelationshipMap</display-name>
+    <servlet-name>GetRelationshipMap</servlet-name>
+    <servlet-class>com.vgs.serv.GetRelationshipMap</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetRelationshipMap</servlet-name>
+    <url-pattern>/GetRelationshipMap</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllMembers</display-name>
+    <servlet-name>GetAllMembers</servlet-name>
+    <servlet-class>com.vgs.serv.GetAllMembers</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllMembers</servlet-name>
+    <url-pattern>/GetAllMembers</url-pattern>
+  </servlet-mapping>
 </web-app>

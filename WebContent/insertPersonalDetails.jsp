@@ -165,7 +165,7 @@
 			<!-- end of container-fluid row-fluid -->
 			<div class="row-fluid">
 				<div class="offset4 span4">
-					<input class="btn btn-large btn-primary pull-right" type="submit" value="Save And Continue">
+					<input id="savepersonal" class="btn btn-large btn-primary pull-right" type="submit" value="Save And Continue">
 				</div>
 			</div>
 		</div>

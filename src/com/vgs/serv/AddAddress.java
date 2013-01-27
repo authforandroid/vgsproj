@@ -73,6 +73,7 @@ public class AddAddress extends HttpServlet {
 			}
 		}else{
 			localId=dbref.insertAddress(localAdd);
+			dbref.updateAddRefInPerson(personId, localId, true);
 			Address perAdd=new Address();
 			perAdd.setLine1(request.getParameter("perline1"));
 			perAdd.setLine2(request.getParameter("perline2"));

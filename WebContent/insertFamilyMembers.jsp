@@ -37,15 +37,16 @@
 					</tr>
 				</thead>
 				<tbody id="memberstbl">
-					<tr>
-						<td>1</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td><a href="#" class="btn btn btn-danger">Delete</a>&nbsp; <a
-							href="#" class="btn btn btn-success">Edit</a></td>
-					</tr>
+				<jsp:include page="GetAllMembers.jsp"></jsp:include>
+<!-- 					<tr> -->
+<!-- 						<td>1</td> -->
+<!-- 						<td>&nbsp;</td> -->
+<!-- 						<td>&nbsp;</td> -->
+<!-- 						<td>&nbsp;</td> -->
+<!-- 						<td>&nbsp;</td> -->
+<!-- 						<td><a href="#" class="btn btn btn-danger">Delete</a>&nbsp; <a -->
+<!-- 							href="#" class="btn btn btn-success">Edit</a></td> -->
+<!-- 					</tr> -->
 				</tbody>
 			</table>
 		</div>

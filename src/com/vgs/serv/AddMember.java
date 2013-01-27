@@ -55,6 +55,7 @@ public class AddMember extends HttpServlet {
 			person.setPerAdd(dbref.getAddress(Long.parseLong(perAdd)));
 		}
 		String relationshipId=request.getParameter("relationshipid");
+		person.setRelationshipId(Long.parseLong(relationshipId));
 		
 		person.setFname(request.getParameter("fname"));
 		person.setMname(request.getParameter("mname"));

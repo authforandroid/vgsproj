@@ -127,7 +127,7 @@ public class DB {
 			}else{
 				//update address as of parent and add relationship 
 				if(person.getParentId()>0){
-					Person parent=getChairPerson(person.getParentId());
+					Person parent=getPerson(person.getParentId());
 					if(parent!= null){
 						Owner owner=new Owner();
 						owner.setOwnerContact(parent.getOwnerContact());
@@ -139,7 +139,7 @@ public class DB {
 						updateAddRefInPerson(person.getPersonId(), parent.getLocalAdd().getAddressId(), true);
 						updateAddRefInPerson(person.getPersonId(), parent.getPerAdd().getAddressId(),false);
 						
-						addMember(person.getPersonId(), parent.getPersonId(), person.getRelationshipId());
+						addMember(person.getPersonId(), person.getParentId(), person.getRelationshipId());
 					}
 				}
 			}
@@ -287,7 +287,7 @@ public class DB {
 
 				person.setSenierCitizen(rs.getBoolean("seniorcitizen"));
 				person.setOwnerFname(rs.getString("ownerfname"));
-				person.setOwnerLname(rs.getString("ownmerlname"));
+				person.setOwnerLname(rs.getString("ownerlname"));
 				person.setOwnerContact(rs.getLong("ownercontact"));
 				person.setOwnerOccupation(rs.getString("owneroccupation"));
 				person.setFormNo(rs.getString("formno"));

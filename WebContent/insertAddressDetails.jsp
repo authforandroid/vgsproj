@@ -19,11 +19,11 @@
 				<fieldset>
 					<legend>Address Details</legend>
 
-					<div class="span4" style="margin-left: 0;">
+					<div class="span4 ownerdetails" style="margin-left: 0;">
 						<div class="control-group">
 							<div class="controls">
 								<label class="checkbox" for=onrent> 
-								<input type="checkbox" id="onrent" name="onrent" value="onrent">I stay on
+								<input type="checkbox" id="onrent" name="onrent" value="onrent" >I stay on
 									rent
 								</label>
 							</div>
@@ -32,28 +32,28 @@
 							<label class="control-label" for="ownerfname">Owner's
 								Last Name</label>
 							<div class="controls">
-								<input type="text" id="ownerfname" name="ownerfname" placeholder="Owner's First Name">
+								<input type="text" id="ownerfname" name="ownerfname" placeholder="Owner's First Name" disabled>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="ownerlname">Owner's
 								Last Name</label>
 							<div class="controls">
-								<input type="text" id="ownerlname" name="ownerlname" placeholder="Owner's Last Name">
+								<input type="text" id="ownerlname" name="ownerlname" placeholder="Owner's Last Name" disabled>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="owneroccupation">Owner's
 								Occupation</label>
 							<div class="controls">
-								<input type="text" id="owneroccupation" name="owneroccupation" placeholder="Owner's Occupation">
+								<input type="text" id="owneroccupation" name="owneroccupation" placeholder="Owner's Occupation" disabled>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="ownercontact">Owner's
 								contact</label>
 							<div class="controls">
-								<input type="text" id="ownercontact" name="ownercontact" placeholder="Owner's Contact">
+								<input type="text" id="ownercontact" name="ownercontact" placeholder="Owner's Contact" disabled>
 							</div>
 						</div>
 					</div>
@@ -167,7 +167,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="offset4 span4">
-					<button class="btn btn-large btn-primary pull-right" type="submit">Save
+					<button id="saveaddress" class="btn btn-large btn-primary pull-right" type="submit">Save
 						And Continue</button>
 				</div>
 			</div>
