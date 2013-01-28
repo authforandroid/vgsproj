@@ -54,11 +54,21 @@ public class AddPerson extends HttpServlet {
 				dob = new SimpleDateFormat("yyyy-mm-dd").parse(yyyy+"-"+mm+"-"+dd);
 			} catch (ParseException e) {
 				e.printStackTrace();
+				response.sendRedirect("error.jsp?message=date of birth is invalid");
+				return;
 			}
 		}
 		person.setDOB(dob);
 		person.setBloodGroup(request.getParameter("bloodgroup"));
-		long contact=Long.parseLong(request.getParameter("contact").length()!=0?request.getParameter("contact"):"0");
+		long contact=0;
+		try{
+			contact=Long.parseLong(request.getParameter("contact").length()!=0?request.getParameter("contact"):"0");
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			response.sendRedirect("error.jsp?message=Contact no invalid");
+			return;
+		}
 		person.setContact(contact);
 		person.setEmail(request.getParameter("email"));
 		person.setVoterId(request.getParameter("voterid"));
@@ -77,7 +87,11 @@ public class AddPerson extends HttpServlet {
 		person.setOrgName(request.getParameter("orgname"));
 		
 		long personId=DB.getInstance().insertPerson(person);
-		response.sendRedirect("insertAddressDetails.jsp?personId="+personId);
+		if(personId>0)
+			response.sendRedirect("insertAddressDetails.jsp?personId="+personId);
+		else
+			response.sendRedirect("error.jsp");
+			
 	}
 
 }

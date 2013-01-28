@@ -115,7 +115,7 @@
 						<div class="control-group">
 							<div class="controls">
 								<label class="checkbox" for="sameadd">
-								 <input type="checkbox" name="sameadd" value="sameadd">same as Local
+								 <input type="checkbox" id="sameadd" name="sameadd" value="sameadd">same as Local
 								</label>
 							</div>
 						</div>

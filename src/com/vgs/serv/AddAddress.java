@@ -62,7 +62,7 @@ public class AddAddress extends HttpServlet {
 		if(request.getParameter("contact").length()!=0){
 			locPh=request.getParameter("contact");
 		}
-		localAdd.setPincode(locPh);
+		localAdd.setContact(locPh);
 		
 		if(sameAdd){
 			localId=dbref.insertAddress(localAdd);
@@ -85,7 +85,7 @@ public class AddAddress extends HttpServlet {
 			if(request.getParameter("percontact").length()!=0){
 				perPh=request.getParameter("percontact");
 			}
-			perAdd.setPincode(perPh);
+			perAdd.setContact(perPh);
 			perId=dbref.insertAddress(perAdd);
 			if(perId>0)
 			dbref.updateAddRefInPerson(personId, perId, false);

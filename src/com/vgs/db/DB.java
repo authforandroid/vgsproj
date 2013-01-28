@@ -110,7 +110,7 @@ public class DB {
 			//psmtInsertPerson.setString(18, person.getFormNo());
 			//psmtInsertPerson.setString(19, person.getUser().getUsername());
 			psmtInsertPerson.setString(18, "TestForm0");
-			psmtInsertPerson.setString(19, "1");
+			psmtInsertPerson.setString(19, "2");
 
 			if(psmtInsertPerson.executeUpdate()>0)
 				System.out.println("inserted successful");

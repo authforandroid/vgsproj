@@ -47,6 +47,27 @@ $(document).ready(function(){
 			if(state==""){
 				message=message+"State should not be blank \n";
 			}
+			var perline1=$("#perline1").val();
+			var perarea=$("#perarea").val();
+			var percity=$("#percity").val();
+			var perstate=$("#perstate").val();
+			
+			if($("#sameadd").is(":checked")){
+				
+			}else{
+				if(perline1==""){
+					message=message+"Line1 should not be blank (Permanent Address) \n";
+				}
+				if(perarea==""){
+					message=message+"Area should not be blank (Permanent Address) \n";
+				}
+				if(percity==""){
+					message=message+"City should not be blank (Permanent Address) \n";
+				}
+				if(perstate==""){
+					message=message+"State should not be blank(Permanent Address) \n";
+				}
+			}
 			if(message==""){
 				
 			}else{
