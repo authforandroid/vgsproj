@@ -29,11 +29,32 @@ $(document).ready(function(){
 				return false;
 			}
 		});
+	
+		
+		
+		
+		$("#sameadd").click(function(){
+			if($(this).is(":checked")){
+			$("#perline1").val($("#line1").val());
+			$("#perline2").val($("#line2").val());
+			$("#perarea").val($("#area").val());
+			$("#percity").val($("#city").val());
+			$("#perstate").val($("#state").val());
+			$("#perpincode").val($("#pincode").val());
+			$("#percontact").val($("#contact").val());
+			}
+		});
+		
 		$("#saveaddress").click(function(){
 			var line1=$("#line1").val();
+			var line2=$("#line2").val();
 			var area=$("#area").val();
 			var city=$("#city").val();
 			var state=$("#state").val();
+			var pincode=$("#pincode").val();
+			var contact=$("#contact").val();
+			
+			
 			var message="";
 			if(line1==""){
 				message=message+"Line1 should not be blank \n";
@@ -47,14 +68,18 @@ $(document).ready(function(){
 			if(state==""){
 				message=message+"State should not be blank \n";
 			}
+			
 			var perline1=$("#perline1").val();
+			var perline2=$("#perline2").val();
 			var perarea=$("#perarea").val();
 			var percity=$("#percity").val();
 			var perstate=$("#perstate").val();
+			var percontact=$("#percontact").val();
+			var perpincode=$("#perpincode").val();
 			
 			if($("#sameadd").is(":checked")){
-				
-			}else{
+				}
+			else{
 				if(perline1==""){
 					message=message+"Line1 should not be blank (Permanent Address) \n";
 				}
@@ -108,21 +133,64 @@ $(document).ready(function(){
 
 	$("#addMemberSubmit").click(function() {
 		var frm = $('#addMemberForm');
-	    $.ajax({
-	           type: frm.attr('method'),
-	           url: frm.attr('action'),
-	           data: frm.serialize(), // serializes the form's elements.
-	           success: function(data,txtStatus,jqXHR)
-	           {
-	        	   var newrow=
-	        		"<tr><td>&nbsp;</td><td>"+data.Fname+"</td>"+
-					"<td>"+data.Mname+"</td>"+
-					"<td>"+data.Lname+"</td>"+
-					"<td><a href=DeletePerson?personId="+data.PersonId+" class=\"btn btn btn-danger\">Delete</a></td></tr>";
-				   $("#memberstbl").append(newrow);
-				   $("#memberModal").modal('hide');
-	           }
-	         });
-	    return false; // avoid to execute the actual submit of the form.
+		
+		var fname= $("#addMemberForm #fname").val();
+		var mname= $("#addMemberForm #mname").val();
+		var lname= $("#addMemberForm #lname").val();
+		var dd= $("#addMemberForm #dd").val();
+		var mm= $("#addMemberForm #mm").val();
+		var yyyy= $("#addMemberForm #yyyy").val();
+				
+			var message="";
+			if(fname==""){
+				message=message+"First Name should not be blank \n";
+			}
+			if(mname==""){
+				message=message+"Middle Name should not be blank \n";
+			}
+			if(lname==""){
+				message=message+"Last Name should not be blank \n";
+			}
+			if(dd==""||mm==""||yyyy==""){
+				message=message+"Date of birth is invalid \n";
+			}
+			if(message==""){
+				$.ajax({
+			           type: frm.attr('method'),
+			           url: frm.attr('action'),
+			           data: frm.serialize(), // serializes the form's elements.
+			           success: function(data,txtStatus,jqXHR)
+			           {
+						   $("#memberModal").modal('hide');
+						   window.location.reload(true);
+			           }
+			         });
+				
+			}else{
+				alert("Please Check the following Errors \n\n"+message);
+				return false;
+			}
+	   // return false; // avoid to execute the actual submit of the form.
+	});
+	
+	$(".btn.delete").click(function(){
+		var id=$(this).attr("id");
+		var status=confirm("you are about to delete a member in family. If you delete it once you cant get it back. Are You sure about this ?" );
+		if(status){
+			$.ajax({ 
+				   type: "POST",
+			       url:"./DeleteMember" ,
+		           data: {
+		        	   memberId:id
+		           },
+		           success: function(data,txtStatus,jqXHR)
+		           {
+					alert("Successfully deleted  member "+data.Fname+" "+data.Lname);
+					window.location.reload(true);
+		           }
+		         });
+		}else{
+			window.location.reload(true);
+		}		
 	});
 });

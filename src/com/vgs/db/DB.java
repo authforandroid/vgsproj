@@ -34,7 +34,8 @@ public class DB {
 	private PreparedStatement psmtGetAddress,psmtGetUser,psmtGetRelationship;
 	
 	private PreparedStatement psmtGetChairPerson;
-	
+	private PreparedStatement psmtDeletePerson;
+	private PreparedStatement psmtDeleteAddress;
 
 	private DB() {
 		String myDriver = "org.gjt.mm.mysql.Driver";
@@ -54,13 +55,15 @@ public class DB {
 			psmtInsertMember=conn.prepareStatement("insert into membertbl(personId, parentId,relationshipId) values (?,?,?)");
 
 			psmtGetAllRelationshipConstants=conn.prepareStatement("select relationshipId, relation from relationshiptbl");
-			psmtGetAllFamilyMembers=conn.prepareStatement("select personId, relationshipId where parentId = ? ");
+			psmtGetAllFamilyMembers=conn.prepareStatement("select personId, relationshipId from membertbl where parentId = ? ");
 			psmtGetPerson=conn.prepareStatement("select * from persontbl where personId=?");
 			psmtGetAddress=conn.prepareStatement("select * from addresstbl where addressId=?");
 			psmtGetUser=conn.prepareStatement("select * from usertbl where userId=?");
 			psmtGetRelationship=conn.prepareStatement("select relation from relationshiptbl where relationshipid=?");
 			
 			psmtGetChairPerson= conn.prepareStatement("select parentId from membertbl where personId=?");
+			psmtDeletePerson=conn.prepareStatement("delete from persontbl where personId=?");
+			psmtDeleteAddress=conn.prepareStatement("delete from addresstbl where addressId=?");
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -246,8 +249,9 @@ public class DB {
 			while (rs.next()) {
 				Member member=new Member();
 				member.setSelf(getPerson(rs.getLong("personId")));
-				member.setSelf(getPerson(rs.getLong("personId")));
+				member.setParent(getPerson(parentId));
 				member.setRelation(getRelationship(rs.getLong("relationshipId")));
+				members.add(member);
 			}
 
 		} catch (SQLException e) {
@@ -369,6 +373,30 @@ public class DB {
 		
 		return person;
 		
+	}
+	public boolean deletePerson(Long personId) {
+		int status=0;
+		try {
+			psmtDeletePerson.setLong(1, personId);
+			status=psmtDeletePerson.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		return status>0?true:false;
+	}
+	public boolean deleteAddress(Long addressId) {
+		int status=0;
+		try {
+			psmtDeleteAddress.setLong(1,addressId);
+			status=psmtDeleteAddress.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		return status>0?true:false;
 	}
 }
 

@@ -36,7 +36,7 @@ CREATE TABLE `addresstbl` (
   `pincode` varchar(45) DEFAULT NULL,
   `contactNo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`addressId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `addresstbl`
@@ -58,8 +58,8 @@ CREATE TABLE `membertbl` (
   KEY `relationId_idx` (`relationshipId`),
   KEY `secondP` (`parentId`) USING BTREE,
   KEY `personId_idx` (`personId`),
-  CONSTRAINT `FK_membertbl_person` FOREIGN KEY (`personId`) REFERENCES `persontbl` (`personId`) ON DELETE CASCADE,
   CONSTRAINT `FK_membertbl_parent` FOREIGN KEY (`parentId`) REFERENCES `persontbl` (`personId`) ON DELETE CASCADE,
+  CONSTRAINT `FK_membertbl_person` FOREIGN KEY (`personId`) REFERENCES `persontbl` (`personId`) ON DELETE CASCADE,
   CONSTRAINT `FK_membertbl_relation` FOREIGN KEY (`relationshipId`) REFERENCES `relationshiptbl` (`relationshipId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -108,10 +108,10 @@ CREATE TABLE `persontbl` (
   KEY `localAdd_idx` (`localAdd`,`perAdd`,`byUser`),
   KEY `byUser_idx` (`byUser`),
   KEY `FK_persontbl_perAdd` (`perAdd`),
-  CONSTRAINT `FK_persontbl_perAdd` FOREIGN KEY (`perAdd`) REFERENCES `addresstbl` (`addressId`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `FK_persontbl_usertbl` FOREIGN KEY (`byUser`) REFERENCES `usertbl` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_persontbl_localAdd` FOREIGN KEY (`localAdd`) REFERENCES `addresstbl` (`addressId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `FK_persontbl_usertbl` FOREIGN KEY (`byUser`) REFERENCES `usertbl` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_persontbl_perAdd` FOREIGN KEY (`perAdd`) REFERENCES `addresstbl` (`addressId`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `persontbl`
@@ -130,13 +130,36 @@ CREATE TABLE `relationshiptbl` (
   `relationshipId` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `relation` varchar(45) NOT NULL,
   PRIMARY KEY (`relationshipId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `relationshiptbl`
 --
 
 /*!40000 ALTER TABLE `relationshiptbl` DISABLE KEYS */;
+INSERT INTO `relationshiptbl` (`relationshipId`,`relation`) VALUES 
+ (1,'Father'),
+ (2,'Mother'),
+ (3,'Husband '),
+ (4,'Wife'),
+ (5,'Brother'),
+ (6,'Sister'),
+ (7,'Son'),
+ (8,'Daughter'),
+ (9,'Grandfather'),
+ (10,'Grandmother'),
+ (11,'Grandson'),
+ (12,'Granddaughter'),
+ (13,'Aunty'),
+ (14,'Uncle '),
+ (15,'Nephew'),
+ (16,'Niece '),
+ (17,'Father-In-Law'),
+ (18,'Mother-In-Law'),
+ (19,'Son-In-Law'),
+ (20,'Daughter-In-Law'),
+ (21,'Sister-In-Law'),
+ (22,'Brother-In-Law');
 /*!40000 ALTER TABLE `relationshiptbl` ENABLE KEYS */;
 
 
@@ -151,7 +174,7 @@ CREATE TABLE `usertbl` (
   `password` varchar(45) DEFAULT NULL,
   `role` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usertbl`
@@ -159,7 +182,7 @@ CREATE TABLE `usertbl` (
 
 /*!40000 ALTER TABLE `usertbl` DISABLE KEYS */;
 INSERT INTO `usertbl` (`userId`,`username`,`password`,`role`) VALUES 
- (1,'raju','raju','admin');
+ (2,'editor','editor','editor');
 /*!40000 ALTER TABLE `usertbl` ENABLE KEYS */;
 
 

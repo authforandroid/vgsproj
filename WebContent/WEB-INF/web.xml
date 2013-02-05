@@ -62,4 +62,14 @@
     <servlet-name>GetAllMembers</servlet-name>
     <url-pattern>/GetAllMembers</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteMember</display-name>
+    <servlet-name>DeleteMember</servlet-name>
+    <servlet-class>com.vgs.serv.DeleteMember</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteMember</servlet-name>
+    <url-pattern>/DeleteMember</url-pattern>
+  </servlet-mapping>
 </web-app>

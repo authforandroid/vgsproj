@@ -51,7 +51,7 @@ public class AddPerson extends HttpServlet {
 		if(dd.length()!=0 && mm.length()!=0 && yyyy.length()!=0)
 		{
 			try {
-				dob = new SimpleDateFormat("yyyy-mm-dd").parse(yyyy+"-"+mm+"-"+dd);
+				dob = new SimpleDateFormat("yyyy-MM-dd").parse(yyyy+"-"+mm+"-"+dd);
 			} catch (ParseException e) {
 				e.printStackTrace();
 				response.sendRedirect("error.jsp?message=date of birth is invalid");
